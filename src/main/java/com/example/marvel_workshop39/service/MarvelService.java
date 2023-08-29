@@ -26,7 +26,7 @@ public class MarvelService {
     
     private static String marvelAPI = "b5d7734b1a89b586ce8356c71d982d47";
 
-    public List<String> getName (String name, int limit, int offset) throws IOException {
+    public List<Marvel> getName (String name, int limit, int offset) throws IOException {
         String getMarvelUrl = UriComponentsBuilder.fromUriString(marvelUrl)
             .queryParam("ts", 1)
             .queryParam("nameStartsWith", name)
@@ -45,8 +45,8 @@ public class MarvelService {
         return getJson(res.getBody());
     }
 
-    public static List<String> getJson (String json) throws IOException {
-        List<String> names = new ArrayList<>();
+    public static List<Marvel> getJson (String json) throws IOException {
+        List<Marvel> names = new ArrayList<>();
         try (InputStream is = new ByteArrayInputStream(json.getBytes())) {
             // create a json reader to read bytes from json string
             JsonReader r = Json.createReader(is);
@@ -59,13 +59,19 @@ public class MarvelService {
             if (dataArray != null) {
             dataArray.getValuesAs(JsonObject.class)
                 .forEach(obj -> {
+                    var m = new Marvel();
                     // JsonObject heroName = obj
                     //     .getJsonObject("name")
                     //     .getJsonObject("fixed_height");
                         
                     String heroName = obj.getString("name");
-                    names.add(heroName);
+                    m.setCharacterName(heroName);
+                    Integer charId = obj.getInt("id");
+                    m.setId(charId);
+                    JsonObject image = obj.getJsonObject("thumbnail");
+                    m.setThumbnail(image.getString("path")+".jpg");
 
+                    names.add(m);
                 });
         }
         } catch (Exception e) {
