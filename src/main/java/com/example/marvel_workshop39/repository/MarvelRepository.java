@@ -21,7 +21,6 @@ public class MarvelRepository {
 
     public Optional<Marvel> get(Integer id){
         String json = (String) template.opsForValue().get(String.valueOf(id));
-        // System.out.println("REPO GET METHOD >>>>>>"+ Optional.of(Marvel.getFromJson(json)));
         return Optional.of(Marvel.getFromJson(json));
     }
 

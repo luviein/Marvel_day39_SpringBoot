@@ -7,14 +7,8 @@ import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Repository;
-import org.springframework.util.MultiValueMap;
-
 import com.example.marvel_workshop39.model.Comments;
-import com.example.marvel_workshop39.model.Marvel;
 import com.mongodb.MongoWriteException;
-import com.mongodb.WriteConcernResult;
-
-import jakarta.servlet.http.HttpSession;
 
 @Repository
 public class CommentRepository {
