@@ -2,6 +2,9 @@ package com.example.marvel_workshop39.model;
 
 import java.io.Serializable;
 
+import jakarta.json.Json;
+import jakarta.json.JsonObject;
+
 public class Comments implements Serializable {
     private String hero_id;
     private String heroName;
@@ -29,6 +32,13 @@ public class Comments implements Serializable {
         return "Comments [hero_id=" + hero_id + ", heroName=" + heroName + ", comments=" + comments + "]";
     }
 
+    public JsonObject toJson() {
+        return Json.createObjectBuilder()
+            .add("hero_id", this.getHero_id())
+            .add("heroName", this.getHeroName())
+            .add("comments", this.getComments())
+            .build();
+    }
     
     
     

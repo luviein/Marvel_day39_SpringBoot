@@ -77,6 +77,12 @@ public class MarvelController {
 
 
     }
-
+    
+    @GetMapping(path="/getComment")
+    public ResponseEntity<List<String>> getComment(String id) {
+        List<String> comments = this.commentRepo.getComments(id.toString());
+        System.out.println(comments);
+        return ResponseEntity.ok().body(comments);
+    }
 
 }
